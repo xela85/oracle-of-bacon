@@ -37,4 +37,10 @@ public class ElasticSearchRepositoryTest {
         assertEquals(5, names.size());
     }
 
+
+    @Test
+    public void testNoResult() throws IOException {
+        assertEquals(0, repository.getActorsSuggests("This request should have no result").size());
+    }
+
 }

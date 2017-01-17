@@ -38,7 +38,12 @@ public class ElasticSearchRepository {
                 "    \"size\": 5,\n" +
                 "    \"query\": {\n" +
                 "        \"match\" : {\n" +
-                "            \"name\" : \"" + searchQuery + "\"\n" +
+                "            \"name\" : {\n" +
+                "              \"query\": \"" + searchQuery + "\",\n" +
+                "              \"operator\": \"and\",\n" +
+                "              \"fuzziness\": 10\n" +
+                "            }\n" +
+                "            \n" +
                 "        }\n" +
                 "    }\n" +
                 "}").build();
