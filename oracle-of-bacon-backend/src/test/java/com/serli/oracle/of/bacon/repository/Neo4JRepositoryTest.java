@@ -26,12 +26,14 @@ public class Neo4JRepositoryTest {
     public void getConnectionsToKevinBacon() throws Exception {
         Neo4JRepository repo = new Neo4JRepository();
 
-        List<?> goodResult = repo.getConnectionsToKevinBacon("Pacino, Al");
+        List<?> goodResult = repo.getConnectionsToKevinBacon("Pacino, Al (I)");
         List<?> badResult = repo.getConnectionsToKevinBacon("bateau");
 
-        assertNotNull("Returned List shouldn't be null", goodResult);
-        assertNull("Returned List should be null", badResult);
-        assertEquals("Returned List shouldn't be empty", 5, goodResult);
+        assertNotEquals("Returned List for good query shouldn't be empty", 0, goodResult.size());
+        assertEquals("Returned List for bad query should be empty", 0, badResult.size());
+        assertEquals("Should be 9 for Pacino, Al (I)", 9, goodResult.size());
+        assertEquals("Should be 13 for Niro, Chel", 13, repo.getConnectionsToKevinBacon("Niro, Chel").size());
+        assertEquals("Should be 5 for Hanks, Tom", 5, repo.getConnectionsToKevinBacon("Hanks, Tom").size());
     }
 
 }
