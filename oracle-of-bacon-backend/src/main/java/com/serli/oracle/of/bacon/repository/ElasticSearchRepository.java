@@ -41,7 +41,7 @@ public class ElasticSearchRepository {
                 "            \"name\" : {\n" +
                 "              \"query\": \"" + searchQuery + "\",\n" +
                 "              \"operator\": \"and\",\n" +
-                "              \"fuzziness\": 10\n" +
+                "              \"fuzziness\": \"AUTO\"\n" +
                 "            }\n" +
                 "            \n" +
                 "        }\n" +
