@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -22,7 +24,14 @@ public class Neo4JRepositoryTest {
 
     @Test
     public void getConnectionsToKevinBacon() throws Exception {
+        Neo4JRepository repo = new Neo4JRepository();
 
+        List<?> goodResult = repo.getConnectionsToKevinBacon("Pacino, Al");
+        List<?> badResult = repo.getConnectionsToKevinBacon("bateau");
+
+        assertNotNull("Returned List shouldn't be null", goodResult);
+        assertNull("Returned List should be null", badResult);
+        assertEquals("Returned List shouldn't be empty", 5, goodResult);
     }
 
 }
