@@ -4,9 +4,9 @@
         <h1 >Oracle Of Bacon</h1>
       </div>
     <actor-search id="actor-search" :on-search="consultOracle"></actor-search>
-    <search-result id="result" :actor-name="actorName"></search-result>
+    <search-result id="result" :actor-name="actorName" :event-launcher="nodeClick"></search-result>
     <last-10-searches id="last-10-searches" class="box"></last-10-searches>
-    <actor-info id="actor-info" :actor-name="actorName" class="box"></actor-info>
+    <actor-info id="actor-info" :actor-name="nameSelected"></actor-info>
   </div>
 </template>
 
@@ -22,6 +22,7 @@ export default {
   data() {
     return {
       actorName: '',
+      nameSelected: '',
     };
   },
   components: {
@@ -33,6 +34,9 @@ export default {
   methods: {
     consultOracle(actorName) {
       this.actorName = actorName;
+    },
+    nodeClick(nameSelected) {
+      this.nameSelected = nameSelected;
     },
   },
 };
@@ -89,6 +93,18 @@ export default {
     background-color: #fbf3c2;
     top: 220px;
     right: 50px;
+  }
+
+  #actor-info {
+    position: absolute;
+    background-color: #fbf3c2;
+    top: 85px;
+    left: 0px;
+    width: 240px;
+    height: 720px;
+    overflow: hidden;
+    border:none;
+    visibility: hidden;
   }
 
   #connected-user {

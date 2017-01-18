@@ -1,14 +1,16 @@
 <template>
   <div class="actor-box" ref="infobox">
     <h3>Actor info</h3>
-    <img :src="actor.image"/>
-    <h4>{{actor.name}}</h4>
-    <p>{{actor.birth_date}}</p>
-    <p>{{actor.description}}</p>
-    <ul>
-        <li v-for="hobby in actor.occupation">{{hobby}}</li>
-    </ul>
-    <p>{{actor.error}}</p>
+    <div class="scrollable">
+      <img :src="actor.image"/>
+      <h4>{{actor.name}}</h4>
+      <p>{{actor.birth_date}}</p>
+      <p>{{actor.description}}</p>
+      <ul>
+          <li v-for="hobby in actor.occupation">{{hobby}}</li>
+      </ul>
+      <p>{{actor.error}}</p>
+    </div>
   </div>
 </template>
 <script>
@@ -44,6 +46,11 @@
 
   .actor-box {
     text-align: center;
+  }
+
+  .scrollable {
+    overflow-y: scroll;
+    height: 90%;
   }
 
 </style>

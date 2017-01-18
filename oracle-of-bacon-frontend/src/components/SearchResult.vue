@@ -1,5 +1,5 @@
 <template>
-  <div style="visibility: hidden;" class="cytos box" ref="cytos"/></div>
+  <div style="visibility: hidden;" class="cytos box" ref="cytos" v-on:selected="nodeSelected"/></div>
 </template>
 
 <script>
@@ -56,6 +56,9 @@
             'control-point-step-size': 40,
             'target-arrow-shape': 'triangle',
           }),
+    }).on('tap', 'node', (event) => {
+      const eventToSend = new CustomEvent('selected', { detail: event.cyTarget.data('value') });
+      document.getElementsByClassName('cytos')[0].dispatchEvent(eventToSend);
     });
   };
 
@@ -63,6 +66,12 @@
     name: 'search-result',
     props: {
       actorName: String,
+      eventLauncher: Function,
+    },
+    methods: {
+      nodeSelected(event) {
+        this.eventLauncher(event.detail);
+      },
     },
     watch: {
       actorName(newName) {
