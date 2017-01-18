@@ -15,6 +15,9 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * Configure an ElasticSearch REST client, and enable the user to search for an actor in the database
+ */
 public class ElasticSearchRepository {
 
     private final JestClient jestClient;
@@ -26,6 +29,10 @@ public class ElasticSearchRepository {
 
     }
 
+    /**
+     * Create and configure an elastic search client connected to the actor database
+     * @return configrued <a href="https://github.com/searchbox-io/Jest">Jest</a> client
+     */
     public static JestClient createClient() {
         JestClient jestClient;
         JestClientFactory factory = new JestClientFactory();
@@ -38,6 +45,13 @@ public class ElasticSearchRepository {
         return jestClient;
     }
 
+    /**
+     * Get actor suggestion for a string given by the user.
+     * Several operations are done on the data, enabling to match with every firstName and lastName order
+     * @param searchQuery user query
+     * @return list of actors matching the query
+     * @throws IOException occurs if an error is catched by the JEST client
+     */
     public List<String> getActorsSuggests(String searchQuery) throws IOException {
 
 

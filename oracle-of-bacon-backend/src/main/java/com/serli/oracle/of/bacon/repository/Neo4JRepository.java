@@ -10,7 +10,9 @@ import java.util.List;
 
 import static org.neo4j.driver.v1.Values.parameters;
 
-
+/**
+ * Configure an access to a Neo4J Graph repository, and retrieve informations on the link between actors
+ */
 public class Neo4JRepository {
     private final Driver driver;
 
@@ -18,6 +20,12 @@ public class Neo4JRepository {
         driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j", "workshop"));
     }
 
+    /**
+     * <i>The object of the game is to start with any actor or actress who has been in a movie and connect them to Kevin Bacon
+     * in the smallest number of links possible. Two people are linked if they've been in a movie together. </i>
+     * @param actorName name of the actor who must be linked to Kevin Bacon
+     * @return graph of films and actors linked the actor to Kevin Bacon
+     */
     public List<?> getConnectionsToKevinBacon(String actorName) {
         Session session = driver.session();
 

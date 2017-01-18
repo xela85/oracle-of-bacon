@@ -10,6 +10,10 @@ import org.bson.Document;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * The Mongo database store several informations (biography, img, etc.) on the actors.
+ * This class enables to search for a specific actor and get these informations
+ */
 public class MongoDbRepository {
 
     private final MongoClient mongoClient;
@@ -18,6 +22,11 @@ public class MongoDbRepository {
         mongoClient = new MongoClient("localhost", 27017);
     }
 
+    /**
+     * Get the informations on an actor which has a given name
+     * @param name name given by the user, can be lower cased or upper cased
+     * @return informations on the actor
+     */
     public Optional<Document> getActorByName(String name) {
 
         name = name.replaceAll("\\s\\(.*?\\)","");
