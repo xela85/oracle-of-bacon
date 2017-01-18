@@ -13,18 +13,41 @@ import static org.junit.Assert.*;
  */
 public class Neo4JRepositoryTest {
 
+    private Neo4JRepository repo;
+
+    @Before
+    public void setup() { repo = new Neo4JRepository(); }
+
     @Test
-    public void getConnectionsToKevinBacon() throws Exception {
-        Neo4JRepository repo = new Neo4JRepository();
+    public void testNotEmpty() throws Exception {
 
-        List<?> goodResult = repo.getConnectionsToKevinBacon("Pacino, Al (I)");
-        List<?> badResult = repo.getConnectionsToKevinBacon("bateau");
+        assertNotEquals("Returned List for good query shouldn't be empty",
+                0,
+                repo.getConnectionsToKevinBacon("Pacino, Al (I)").size());
+    }
 
-        assertNotEquals("Returned List for good query shouldn't be empty", 0, goodResult.size());
-        assertEquals("Returned List for bad query should be empty", 0, badResult.size());
-        assertEquals("Should be 9 for Pacino, Al (I)", 9, goodResult.size());
-        assertEquals("Should be 13 for Niro, Chel", 13, repo.getConnectionsToKevinBacon("Niro, Chel").size());
+    @Test
+    public void testEmpty() throws Exception {
+        assertEquals("Returned List for bad query should be empty",
+                0,
+                repo.getConnectionsToKevinBacon("bateau").size());
+    }
+
+    @Test
+    public void testShouldBeFive() throws Exception {
         assertEquals("Should be 5 for Hanks, Tom", 5, repo.getConnectionsToKevinBacon("Hanks, Tom").size());
+    }
+
+    @Test
+    public void testShouldBeNine() throws Exception {
+        assertEquals("Should be 9 for Pacino, Al (I)",
+                9,
+                repo.getConnectionsToKevinBacon("Pacino, Al (I)").size());
+    }
+
+    @Test
+    public void testShouldBeThirteen() throws Exception {
+        assertEquals("Should be 13 for Niro, Chel", 13, repo.getConnectionsToKevinBacon("Niro, Chel").size());
     }
 
 }
