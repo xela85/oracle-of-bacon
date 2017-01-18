@@ -25,6 +25,8 @@
             .then(response => response.json())
             .then((bodyJson) => {
               this.actor = bodyJson;
+              const y = this.actor.birth_date.split('-');
+              this.actor.birth_date = `${y[2]}/${y[1]}/${y[0]}`;
             });
         } else {
           this.$refs.infobox.style.visibility = 'hidden';

@@ -91,13 +91,6 @@ export default {
     right: 50px;
   }
 
-  #actor-info {
-    position: absolute;
-    background-color: #fbf3c2;
-    top: 220px;
-    left: 50px;
-  }
-
   #connected-user {
     position: absolute;
     top: 20px;
