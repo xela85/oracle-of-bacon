@@ -21,7 +21,9 @@ public class MongoDbRepository {
     public Optional<Document> getActorByName(String name) {
 
         name = name.replaceAll("\\s\\(.*?\\)","");
-        name = String.format("%s %s", name.split(", ")[1], name.split(", ")[0]);
+        if (name.contains(",")) {
+            name = String.format("%s %s", name.split(", ")[1], name.split(", ")[0]);
+        }
         System.out.println(name);
         MongoCursor<Document> cursor = mongoClient.getDatabase("workshop")
                 .getCollection("actors")
