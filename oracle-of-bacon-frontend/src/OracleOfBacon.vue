@@ -6,6 +6,7 @@
     <actor-search id="actor-search" :on-search="consultOracle"></actor-search>
     <search-result id="result" :actor-name="actorName"></search-result>
     <last-10-searches id="last-10-searches" class="box"></last-10-searches>
+    <actor-info id="actor-info" :actor-name="actorName" class="box"></actor-info>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import 'whatwg-fetch';
 import ActorSearch from './components/ActorSearch';
 import SearchResult from './components/SearchResult';
 import Last10Searches from './components/Last10Searches';
+import ActorInfo from './components/ActorInfo';
 
 export default {
   name: 'app',
@@ -26,6 +28,7 @@ export default {
     ActorSearch,
     SearchResult,
     Last10Searches,
+    ActorInfo,
   },
   methods: {
     consultOracle(actorName) {
@@ -86,6 +89,13 @@ export default {
     background-color: #fbf3c2;
     top: 220px;
     right: 50px;
+  }
+
+  #actor-info {
+    position: absolute;
+    background-color: #fbf3c2;
+    top: 220px;
+    left: 50px;
   }
 
   #connected-user {
