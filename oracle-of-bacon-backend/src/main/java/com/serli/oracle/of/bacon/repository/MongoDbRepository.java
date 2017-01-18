@@ -4,6 +4,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
 
 import java.util.Optional;
@@ -17,7 +18,13 @@ public class MongoDbRepository {
     }
 
     public Optional<Document> getActorByName(String name) {
-        // TODO implement actor fetch
-        return null;
+
+        MongoCursor<Document> cursor = mongoClient.getDatabase("workshop")
+                .getCollection("actors")
+                .find(Filters.eq("name", name)).iterator();
+        if (cursor.hasNext()){
+            return Optional.of(cursor.next());
+        }
+        return Optional.empty();
     }
 }
