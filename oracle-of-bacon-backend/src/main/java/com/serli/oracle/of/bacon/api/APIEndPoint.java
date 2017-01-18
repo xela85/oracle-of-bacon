@@ -27,8 +27,13 @@ public class APIEndPoint {
 
     @Get("bacon-to?actor=:actorName")
     public String getConnectionsToKevinBacon(String actorName) {
-        redisRepository.addSearchEntry(actorName);
-        return neo4JRepository.getConnectionsToKevinBacon(actorName).toString();
+        try {
+            redisRepository.addSearchEntry(actorName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return neo4JRepository.getConnectionsToKevinBacon(actorName).toString();
+        }
     }
 
     @Get("suggest?q=:searchQuery")
