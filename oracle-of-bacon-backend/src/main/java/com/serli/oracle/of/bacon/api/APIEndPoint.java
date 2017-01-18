@@ -50,7 +50,7 @@ public class APIEndPoint {
     public String getActorByName(String actorName) {
 
         Optional<Document> document = mongoDbRepository.getActorByName(actorName);
-        return document.isPresent() ? document.get().toJson() : "{\"error\":\"Aucune donnée trouvée pour cet acteur\"}";
+        return document.isPresent() ? document.get().toJson() : "{\"error\":\"No data found for this actor.\"}";
         
     }
 }
