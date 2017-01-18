@@ -7,6 +7,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 public class MongoDbRepository {
@@ -19,6 +20,9 @@ public class MongoDbRepository {
 
     public Optional<Document> getActorByName(String name) {
 
+        name = name.replaceAll("\\s\\(.*?\\)","");
+        name = String.format("%s %s", name.split(", ")[1], name.split(", ")[0]);
+        System.out.println(name);
         MongoCursor<Document> cursor = mongoClient.getDatabase("workshop")
                 .getCollection("actors")
                 .find(Filters.eq("name", name)).iterator();
