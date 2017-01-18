@@ -1,6 +1,7 @@
 package com.serli.oracle.of.bacon.repository;
 
 
+import com.serli.oracle.of.bacon.utils.Json;
 import org.neo4j.driver.v1.*;
 import org.neo4j.driver.v1.types.Path;
 
@@ -87,11 +88,12 @@ public class Neo4JRepository {
         @Override
         public String toString() {
             return String.format(
-                "{\"data\":" +
-                    "{\"id\": \"%s\"," +
-                    "\"type\":\"%s\"," +
-                    "\"value\": \"%s\"}" +
-                "}",
+                    Json.obj()
+                            .add("data", Json.obj()
+                                    .add("id", id)
+                                    .add("type", type)
+                                    .add("value", value))
+                            .toString(),
                 id, type,value);
         }
     }
@@ -111,12 +113,13 @@ public class Neo4JRepository {
         @Override
         public String toString() {
             return String.format(
-                    "{\"data\":{ " +
-                        "\"id\": \"%s\"," +
-                        "\"source\":\"%s\"," +
-                        "\"target\":\"%s\"," +
-                        "\"value\": \"%s\"}" +
-                    "}",
+                    Json.obj()
+                            .add("data", Json.obj()
+                                    .add("id", id)
+                                    .add("source", source)
+                                    .add("target", target)
+                                    .add("value", value))
+                            .toString(),
                     id, source, target , value);
         }
     }

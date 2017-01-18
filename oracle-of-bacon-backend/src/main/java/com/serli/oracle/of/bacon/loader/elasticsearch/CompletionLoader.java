@@ -2,6 +2,7 @@ package com.serli.oracle.of.bacon.loader.elasticsearch;
 
 import com.mongodb.BulkWriteRequestBuilder;
 import com.serli.oracle.of.bacon.repository.ElasticSearchRepository;
+import com.serli.oracle.of.bacon.utils.Json;
 import io.searchbox.client.JestClient;
 import io.searchbox.core.Bulk;
 import io.searchbox.core.Index;
@@ -71,31 +72,25 @@ public class CompletionLoader {
 
     private static void createMapping(JestClient client) throws IOException {
         PutMapping putMapping = new PutMapping.Builder("actors", "actor",
-                "{\n" +
-                        "  \"actor\": {\n" +
-                        "    \"properties\": {\n" +
-                        "      \"name\": {\n" +
-                        "        \"type\": \"string\"\n" +
-                        "      },\n" +
-                        "      \"name_suggest\": {\n" +
-                        "        \"type\": \"completion\"\n" +
-                        "      }\n" +
-                        "    }\n" +
-                        "  }\n" +
-                        "}").build();
+                Json.obj()
+                        .add("actor", Json.obj()
+                                .add("properties", Json.obj()
+                                        .add("name", Json.obj()
+                                                .add("type", "string"))
+                                        .add("name_suggest", Json.obj()
+                                                .add("type", "completion"))))
+                        .toString()).build();
         System.out.println(client.execute(putMapping).getErrorMessage());
     }
 
     private static void recreateIndex(JestClient client) throws IOException {
         client.execute(new DeleteIndex.Builder("actors").build());
         client.execute(new CreateIndex.Builder("actors")
-                .settings("{\n" +
-                        "  \"settings\": {\n" +
-                        "    \"analysis\": {\n" +
-                        "      \"analyser\": \"english\"\n" +
-                        "    }\n" +
-                        "  }\n" +
-                        "}"
+                .settings(Json.obj()
+                        .add("settings", Json.obj()
+                                .add("analysis", Json.obj()
+                                        .add("analyser", "english")))
+                        .toString()
                 ).build());
     }
 

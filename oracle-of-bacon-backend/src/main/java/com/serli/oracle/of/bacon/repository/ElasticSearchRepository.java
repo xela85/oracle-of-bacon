@@ -1,6 +1,7 @@
 package com.serli.oracle.of.bacon.repository;
 
 import com.serli.oracle.of.bacon.loader.elasticsearch.Actor;
+import com.serli.oracle.of.bacon.utils.Json;
 import io.searchbox.client.JestClient;
 import io.searchbox.client.JestClientFactory;
 import io.searchbox.client.config.HttpClientConfig;
@@ -39,15 +40,17 @@ public class ElasticSearchRepository {
 
     public List<String> getActorsSuggests(String searchQuery) throws IOException {
 
-        Suggest suggest = new Suggest.Builder("{\n" +
-                "  \"my-suggestion\": {\n" +
-                "    \"text\": \"" + searchQuery + "\",\n" +
-                "    \"completion\": {\n" +
-                "      \"field\": \"name_suggest\",\n" +
-                "      \"size\": 10\n" +
-                "    }\n" +
-                "  }\n" +
-                "}").addIndex("actors").build();
+
+
+
+        Suggest suggest = new Suggest.Builder(Json.obj()
+                .add("my-suggestion", Json.obj()
+                        .add("text", searchQuery)
+                        .add("completion", Json.obj()
+                                .add("field", "name_suggest")
+                                .add("size", 10)))
+                .toString())
+                .addIndex("actors").build();
 
         SuggestResult result = jestClient.execute(suggest);
         return result.getSuggestions(SUGGESTION_NAME).stream()
