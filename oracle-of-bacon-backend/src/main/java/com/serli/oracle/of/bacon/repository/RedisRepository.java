@@ -28,6 +28,7 @@ public class RedisRepository {
 
     public void addSearchEntry(String search) {
         jedis.lpush(searchesField, search);
+        jedis.ltrim(search, 0, 9);
     }
 
     public void clearList() {
